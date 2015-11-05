@@ -1,0 +1,30 @@
+__author__ = 'wilson'
+# -*- coding: utf-8 -*-
+
+import requests,urllib.request
+from bs4 import BeautifulSoup
+import re
+import os
+
+url = 'http://www.qiushibaike.com/pic'
+folder_path = '/Users/houyongsheng/Documents/Coding/download/'
+header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2547.0 Safari/537.36',
+          'Cookie':'qqq_uuid_=NWZlMWU0ODI4OTEyODUyNzAwYWRlZGJlM2U1ZGU3NjZjODdkYmY2MQ==|1446005185|1a75639f273207b2a06e26a1c8b3ea4f6a561b02; Hm_lvt_2670efbdd59c7e3ed3749b458cafaa37=1446005190,1446606600,1446609700,1446617965; Hm_lpvt_2670efbdd59c7e3ed3749b458cafaa37=1446618092'}
+
+source_code = requests.get(url,headers = header)
+plain_text = source_code.text
+Soup = BeautifulSoup(plain_text)
+
+download_links = []
+download_alt = []
+for pic_tag in Soup.find_all('img'):
+    pic_link = pic_tag.get('src')
+    pic_alt = pic_tag.get('alt')
+    download_links.append(pic_link)
+    download_alt.append(pic_alt)
+    pic_name = folder_path + pic_alt +'.jpg'
+    #print (pic_name)
+for item in download_links:
+    result = {item:pic_name}
+    urllib.request.urlretrieve(item,result.get(item))
+    print (item)
