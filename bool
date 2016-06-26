@@ -1,4 +1,0 @@
-num1 = (input('enter a number:'))
-num2 = (input('enter another number:'))
-value = {'01':'0','10':'0','11':'1','00':'1'}
-print(''.join(map(lambda i: value[num1[i]+num2[i]],range(len(num1)))))
