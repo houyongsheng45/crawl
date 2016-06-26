@@ -1,0 +1,8 @@
+(function(){
+    var news = document.getElementsByClassName("al-attribution-source");
+    var news_name = [];
+    for(var i=0; i<news.length; i++){
+        news_name.push(news[i].innerHTML);
+    }
+    console.log(news_name);
+})()
