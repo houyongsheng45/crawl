@@ -11,11 +11,18 @@ urls = ['http://m.lianjia.com/bj/zufang/pg' + str(i) for i in range(1,56420,1)]
 def get_attractions(url):
     response = requests.get(url,headers = headers)
     soup = BeautifulSoup(response.text,'lxml')
+
     titles = soup.select('#main_start > section.page.page_zufang > div > div.mod_box.house_lists > div.mod_cont > ul > li > div > div.item_list > div.item_main.text_cut')
     locations = soup.select('#main_start > section.page.page_zufang > div > div.mod_box.house_lists > div.mod_cont > ul > li > div > div.item_list > div.item_other > a')
     infos = soup.select('#main_start > section.page.page_zufang > div > div.mod_box.house_lists > div.mod_cont > ul > li > div > div.item_list > div.item_minor > div.info')
     prices = soup.select('#main_start > section.page.page_zufang > div > div.mod_box.house_lists > div.mod_cont > ul > li > div > div.item_list > div.item_minor > div.price_total')
     tags = soup.select('#main_start > section.page.page_zufang > div > div.mod_box.house_lists > div.mod_cont > ul > li > div > div.item_list > div.tag_box')
+
+    title = titles[0].get_text()
+    location = locations[0].get_text()
+    info = infos[0].get_text()
+    price = prices[0].get_text()
+    tag = tags[0].get_text()
 
     for title in titles:
         print(title.get_text())
@@ -32,7 +39,7 @@ def get_attractions(url):
         fieldnames = ['标题','地点',"详情","价格","标签"]
         writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
 #       writer.writeheader()
-        writer.writerow({'标题':title.get_text(),'地点':location.get_text(),'详情':info.get_text(),'价格':price.get_text(),'标签':tag.get_text()})
+        writer.writerow({'标题':title,'地点':location,'详情':info,'价格':price,'标签':tag})
 
 for i in urls:
     get_attractions(i)
