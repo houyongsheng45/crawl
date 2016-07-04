@@ -18,33 +18,22 @@ def get_attractions(k):
     locations = soup.select('body > div.job-detail.page.clear > div.job-detail-l > div.job_profile.jpadding > div.base_info > div.job_require > span.job_loc')
     infos = soup.select('body > div.job-detail.page.clear > div.job-detail-l > div.job_intro.jpadding.mt15 > div.job_intro_wrap > div')
 
-    for title in titles:
-        print(title.get_text())
-    for money in moneys:
-        print(money.get_text())
-    for company in companys:
-        print(company.get_text())
-    for industry in industrys:
-        print(industry.get_text())
-    for scale in scales:
-        print(scale.get_text())
-    for ctype in ctypes:
-        print(ctype.get_text())
-    for exp in exps:
-        print(exp.get_text())
-    for degree in degrees:
-        print(degree.get_text())
-    for jobtime in jobtimes:
-        print(jobtime.get_text())
-    for location in locations:
-        print(location.get_text())
-    for info in infos:
-        print(info.get_text())
+    title = titles[0].get_text()
+    money = moneys[0].get_text()
+    company = companys[0].get_text()
+    industry = industrys[0].get_text()
+    scale = scales[0].get_text()
+    ctype = ctypes[0].get_text()
+    exp = exps[0].get_text()
+    degree = degrees[0].get_text()
+    jobtime = jobtimes[0].get_text()
+    location = locations[0].get_text()
+    info = infos[0].get_text()
 
     with open('chinahr.csv','a') as csvfile:
         fieldnames = ['职位','月薪','公司','行业','规模','性质','年限要求','学历要求','工作时间','工作地点','工作内容']
         writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
-        writer.writerow({'职位':title.get_text(),'月薪':money.get_text(),'公司':company.get_text(),'行业':industry.get_text(),'规模':scale.get_text(),'性质':ctype.get_text(),'年限要求':exp.get_text(),'学历要求':degree.get_text(),'工作时间':jobtime.get_text(),'工作地点':location.get_text(),'工作内容':info.get_text()})
+        writer.writerow({'职位':title,'月薪':money,'公司':company,'行业':industry,'规模':scale,'性质':ctype,'年限要求':exp,'学历要求':degree,'工作时间':jobtime,'工作地点':location,'工作内容':info})
 
 # 获取职能分类列表cates
 cate = 'http://www.chinahr.com/beijing/jobs/'
